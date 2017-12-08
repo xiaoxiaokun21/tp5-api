@@ -42,3 +42,18 @@ function status($id, $status) {
     }
     return $str;
 }
+
+/**通用API接口数据输出
+ * @param $status 业务状态码
+ * @param $message 信息提示
+ * @param $data  数据
+ * @param $httpCode http状态码
+ */
+function show($status, $message, $data = [], $httpCode = 200) {
+    $result = [
+        'status'  => $status,
+        'message' => $message,
+        'data'    => $data,
+    ];
+    return json($result, $httpCode);
+}
