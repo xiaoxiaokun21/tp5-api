@@ -50,4 +50,10 @@ class Login extends Controller {
             $this->error('请求不合法');
         }
     }
+
+    /* 退出登录*/
+    public function logout() {
+        session(null, config('admin.session_user_scope'));
+        $this->redirect('login/index');
+    }
 }
