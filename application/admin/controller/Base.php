@@ -9,6 +9,7 @@ class Base extends Controller {
     public $page = '';
     public $size = '';
     public $from = 0;
+    public $model = '';
 
     public function _initialize() {
         if (!$this->isLogin()) {
@@ -30,5 +31,22 @@ class Base extends Controller {
         $this->size = !empty($data['size']) ? $data['size'] : config('paginate.list_rows');
         $this->from = ($this->page - 1) * $this->size;
 
+    }
+
+    /*删除逻辑*/
+    public function delete($id = 0) {
+        if (!intval($id)) {
+            $this->result('', 0, 'ID不合法');
+        }
+        $model = $this->model ? $this->model : request()->controller();
+        try {
+            $res = model($model)->save(['status' => -1], ['id' => $id]);
+        } catch (\Exception $e) {
+            $this->result('', 0, $e->getMessage());
+        }
+        if ($res) {
+            $this->result(['jump_url' => $_SERVER['HTTP_REFERER']], 1, 'ok');
+        }
+        $this->result('', 1, '失败');
     }
 }

@@ -48,7 +48,6 @@ function selecttime(flag){
 function app_del(obj){
     // 获取模板当中的url地址
     url = $(obj).attr('del_url');
-
     layer.confirm('确认要删除吗？',function(index){
         $.ajax({
             type: 'POST',

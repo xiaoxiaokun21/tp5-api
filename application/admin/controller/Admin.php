@@ -7,6 +7,7 @@ use app\common\lib\IAuth;
 
 class Admin extends Base {
     public function add() {
+        $this->model = 'AdminUser';
         if (request()->isPost()) {
             $data     = input('post.');
             $validate = validate('AdminUser');

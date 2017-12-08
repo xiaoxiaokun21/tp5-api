@@ -60,4 +60,5 @@ class News extends Base {
             ]);
         }
     }
+
 }
