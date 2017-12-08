@@ -3,13 +3,21 @@
 namespace app\admin\controller;
 
 
+use think\Request;
+
 class Image extends Base {
     public function upload() {
-        $data = [
-            'status' => 1,
-            'message'=>'OK',
-            'data'=>'http://pic4.nipic.com/20091217/3885730_124701000519_2.jpg'
-        ];
-        echo json_encode($data);
+        $file = Request::instance()->file('file');
+        // 把图片上传到指定文件夹
+        $info = $file->move('upload');
+        if ($info && $info->getPathname()) {
+            $data = [
+                'status'  => 1,
+                'message' => 'ok',
+                'data'    => '/' . $info->getPathname()
+            ];
+            return json_encode($data);
+        }
+        return json_encode(['status' => 0, 'message' => 'error']);
     }
 }
