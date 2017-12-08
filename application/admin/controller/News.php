@@ -5,7 +5,10 @@ namespace app\admin\controller;
 
 class News extends Base {
     public function index() {
-        return $this->fetch();
+        $news = model('News')->getNews();
+        return $this->fetch('', [
+            'news' => $news
+        ]);
     }
 
     public function add() {
