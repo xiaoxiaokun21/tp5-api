@@ -1,7 +1,7 @@
 <!--header-->
 {include file="public/_meta" /}
 <article class="page-container">
-  <form class="form form-horizontal" id="form-singwaapp" url="">
+  <form class="form form-horizontal" id="form-singwaapp" url="{:url('news/add')}">
     <div class="row cl">
       <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章标题：</label>
       <div class="formControls col-xs-8 col-sm-9">
@@ -18,9 +18,9 @@
       <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
       <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select name="catid" class="select">
-                 
-                  <option value=""></option>
-                  
+                 {volist name="cats " id="vo"}
+                  <option value="{$key}">{$vo}</option>
+                  {/volist}
                 </select>
 				</span> </div>
     </div>
