@@ -18,7 +18,8 @@
     "require": {
         "php": ">=5.4.0",
         "topthink/framework": "~5.0.0",
-        "topthink/think-captcha": "dev-master"
+        "topthink/think-captcha": "dev-master",
+        "qiniu/php-sdk": "dev-master"
     },
     "autoload": {
         "psr-4": {
