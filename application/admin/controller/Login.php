@@ -22,15 +22,30 @@ class Login extends Controller {
             if (!$validate->check($data)) {
                 $this->error($validate->getError());
             }
-            $user = model('AdminUser')->get(['username' => $data['username']]);
-            if (!$user && $user->status === 1) {
+            try {
+                $user = model('AdminUser')->get(['username' => $data['username']]);
+            } catch (\Exception $e) {
+                $this->error($e->getMessage());
+            }
+            if (!$user && $user->status === config('code.status_normal')) {
                 $this->error('该用户不存在');
             }
             // 对密码校验
             if (IAuth::setPassword($data['password']) != $user['password']) {
                 $this->error('密码不正确');
             }
-            halt($user);
+            // 1 更新数据库 登陆时间 登录ip
+            $udata = [
+                'last_login_time' => time(),
+                'last_login_ip'   => request()->ip()
+            ];
+            try {
+                model('AdminUser')->save($udata, ['id' => $user->id]);
+            } catch (\Exception $e) {
+                $this->error($e->getMessage());
+            }
+            session(config('admin.session_user'), $user, config('admin.session_user_scope'));
+            $this->success('登陆成功', 'index/index');
         } else {
             $this->error('请求不合法');
         }
