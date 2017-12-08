@@ -5,9 +5,19 @@ namespace app\admin\controller;
 
 class News extends Base {
     public function index() {
-        $news = model('News')->getNews();
+//        $news = model('News')->getNews();
+        $data              = input('param.');
+        $whereData         = [];
+        $this->getPageAndSize($data);
+        $whereData['page'] = $this->page;
+        $whereData['size'] = $this->size;
+        $news              = model('News')->getNewsByCondition($whereData);
+        $total             = model('News')->getNewsCountByCondition($whereData);
+        $pageTotal         = ceil($total / $whereData['size']);
         return $this->fetch('', [
-            'news' => $news
+            'news'      => $news,
+            'pageTotal' => $pageTotal,
+            'curr'=>$whereData['page']
         ]);
     }
 

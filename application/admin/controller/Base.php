@@ -6,6 +6,9 @@ namespace app\admin\controller;
 use think\Controller;
 
 class Base extends Controller {
+    public $page = '';
+    public $size = '';
+
     public function _initialize() {
         if (!$this->isLogin()) {
             $this->redirect('login/index');
@@ -18,5 +21,12 @@ class Base extends Controller {
             return true;
         }
         return false;
+    }
+
+    /*获取分页page size 内容*/
+    public function getPageAndSize($data) {
+        $this->page = !empty($data['page']) ? $data['page'] : 1;
+        $this->size = !empty($data['size']) ? $data['size'] : config('paginate.list_rows');
+
     }
 }

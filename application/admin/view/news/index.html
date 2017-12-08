@@ -54,7 +54,6 @@
       </tbody>
     </table>
     <div id="laypage"></div>
-    {:pagination($news)}
   </div>
 
 </div>
@@ -65,8 +64,19 @@
 <script type="text/javascript" src="__STATIC__/hadmin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="__STATIC__/hadmin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-
-
+    var url = "{:url('news/index')}";
+    //总页数大于页码总数
+    laypage({
+        cont: 'laypage',
+        pages: '{$pageTotal}' ,
+        skin:'#5fb878',
+        curr:'{$curr}',
+        jump: function (e,first) {
+            if (!first) {
+                location.href=url+'?page='+e.curr
+            }
+        }
+    });
 </script>
 <style>
   .imooc-app .pagination li{display:inline; padding-left:10px;}
