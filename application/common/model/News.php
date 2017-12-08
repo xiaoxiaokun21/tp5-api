@@ -18,21 +18,20 @@ class News extends Base {
     }
 
     /*根据条件获取列表数据*/
-    public function getNewsByCondition($param = []) {
+    public function getNewsByCondition($condition = [], $from = 0, $size) {
         $condition['status'] = [
             'neq', config('code.status_delete')
         ];
         $order               = ['id' => 'desc'];
-        $from                = ($param['page'] - 1) * $param['size'];
         $result              = $this->where($condition)
-            ->limit($from, $param['size'])
+            ->limit($from, $size)
             ->order($order)
             ->select();
         return $result;
     }
 
     /* 获取列表数据的总数*/
-    public function getNewsCountByCondition($param = []) {
+    public function getNewsCountByCondition($condition = []) {
         $condition['status'] = [
             'neq', config('code.status_delete')
         ];
