@@ -49,4 +49,19 @@ class Base extends Controller {
         }
         $this->result('', 1, '失败');
     }
+
+    /*修改状态*/
+    public function status() {
+        $data = input('param.');
+        $model = $this->model ? $this->model : request()->controller();
+        try {
+            $res = model($model)->save(['status' => $data['status']], ['id' => $data['id']]);
+        } catch (\Exception $e) {
+            $this->result('', 0, $e->getMessage());
+        }
+        if ($res) {
+            $this->result(['jump_url' => $_SERVER['HTTP_REFERER']], 1, 'ok');
+        }
+        $this->result('', 1, '失败');
+    }
 }

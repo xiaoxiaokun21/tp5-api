@@ -77,7 +77,7 @@ function app_status(obj){
     // 获取模板当中的url地址
     url = $(obj).attr('status_url');
 
-    layer.confirm('确认要删除吗？',function(index){
+    layer.confirm('确认要修改状态？',function(index){
         $.ajax({
             type: 'POST',
             url: url,
