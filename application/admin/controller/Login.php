@@ -4,11 +4,18 @@ namespace app\admin\controller;
 
 
 use app\common\lib\IAuth;
-use think\Controller;
 
-class Login extends Controller {
+class Login extends Base {
+    /* 覆盖基类方法 */
+    public function _initialize() {
+    }
+
     public function index() {
-        return $this->fetch();
+        if ($this->isLogin()) {
+            $this->redirect('index/index');
+        } else {
+            return $this->fetch();
+        }
     }
 
     // 登录相关业务

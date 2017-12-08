@@ -4,9 +4,8 @@ namespace app\admin\controller;
 
 
 use app\common\lib\IAuth;
-use think\Controller;
 
-class Admin extends Controller {
+class Admin extends Base {
     public function add() {
         if (request()->isPost()) {
             $data     = input('post.');
