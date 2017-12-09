@@ -1,7 +1,9 @@
 <?php
 
-namespace app\api\controller;
+namespace app\api\controller\v1;
 
+
+use app\api\controller\Common;
 
 class Cat extends Common {
     public function read() {
