@@ -38,4 +38,43 @@ class News extends Base {
         return $this->where($condition)
             ->count();
     }
+
+    /*获取头图*/
+    public function getIndexHeadNormalNews($num = 4) {
+        $data  = [
+            'status'         => 1,
+            'is_head_figure' => 1
+        ];
+        $order = [
+            'id' => 'desc'
+        ];
+        return $this->where($data)
+            ->field($this->_getListField())
+            ->order($order)
+            ->limit($num)
+            ->select();
+    }
+
+    /*获取推荐的数据*/
+    public function getPositionNormalNews($num = 20) {
+        $data  = [
+            'status'      => 1,
+            'is_position' => 1
+        ];
+        $order = [
+            'id' => 'desc'
+        ];
+        return $this->where($data)
+            ->field($this->_getListField())
+            ->order($order)
+            ->limit($num)
+            ->select();
+    }
+
+    /*通用获取参数的数据字段*/
+    private function _getListField() {
+        return [
+            'id', 'catid', 'image', 'title', 'read_count'
+        ];
+    }
 }

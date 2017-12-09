@@ -44,4 +44,15 @@ class Common extends Controller {
 
         echo((new Aes())->decrypt(IAuth::setSign($data)));
     }
+
+    protected function getDealNews($news = []) {
+        if (empty($news)) {
+            return [];
+        }
+        $cats = config('cat.lists');
+        foreach ($news as $k => $new) {
+            $news[$k]['catname'] = $cats[$news['catid']] ? $cats[$new['catid']] : '-';
+        }
+        return $news;
+    }
 }
