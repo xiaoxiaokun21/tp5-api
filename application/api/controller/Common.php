@@ -6,6 +6,7 @@ namespace app\api\controller;
 use app\common\lib\Aes;
 use app\common\lib\exception\ApiException;
 use app\common\lib\IAuth;
+use app\common\lib\Time;
 use think\Controller;
 
 class Common extends Controller {
@@ -33,7 +34,8 @@ class Common extends Controller {
     public function testss() {
         $data = [
             'did'  => 213,
-            'name' => 'yangze'
+            'name' => 'yangze',
+            'time'=>Time::get13TimeStamp()
         ];
         echo IAuth::setSign($data);
 
