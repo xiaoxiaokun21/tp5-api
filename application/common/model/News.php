@@ -19,11 +19,14 @@ class News extends Base {
 
     /*根据条件获取列表数据*/
     public function getNewsByCondition($condition = [], $from = 0, $size) {
-        $condition['status'] = [
-            'neq', config('code.status_delete')
-        ];
-        $order               = ['id' => 'desc'];
-        $result              = $this->where($condition)
+        if (!isset($condition['status'])) {
+            $condition['status'] = [
+                'neq', config('code.status_delete')
+            ];
+        }
+        $order  = ['id' => 'desc'];
+        $result = $this->where($condition)
+            ->field($this->_getListField())
             ->limit($from, $size)
             ->order($order)
             ->select();
@@ -32,9 +35,11 @@ class News extends Base {
 
     /* 获取列表数据的总数*/
     public function getNewsCountByCondition($condition = []) {
-        $condition['status'] = [
-            'neq', config('code.status_delete')
-        ];
+        if (!isset($condition['status'])) {
+            $condition['status'] = [
+                'neq', config('code.status_delete')
+            ];
+        }
         return $this->where($condition)
             ->count();
     }
@@ -74,7 +79,15 @@ class News extends Base {
     /*通用获取参数的数据字段*/
     private function _getListField() {
         return [
-            'id', 'catid', 'image', 'title', 'read_count'
+            'id',
+            'catid',
+            'image',
+            'title',
+            'read_count',
+            'status',
+            'is_position',
+            'update_time',
+            'create_time'
         ];
     }
 }

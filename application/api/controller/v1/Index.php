@@ -10,8 +10,8 @@ class Index extends Common {
         $heads     = model('News')->getIndexHeadNormalNews();
         $positions = model('News')->getPositionNormalNews();
         $result    = [
-            'heads'     => $heads,
-            'positions' => $positions
+            'heads'     => $this->getDealNews($heads),
+            'positions' => $this->getDealNews($positions)
         ];
         return show(config('code.app_show_success'), 'OK', $result);
     }

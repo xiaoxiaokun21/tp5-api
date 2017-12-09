@@ -12,6 +12,9 @@ use think\Controller;
 
 class Common extends Controller {
     public $header = [];
+    public $page = 1;
+    public $size = 10;
+    public $from = 0;
 
     public function _initialize() {
         $this->checkRequestAuth();
@@ -51,8 +54,16 @@ class Common extends Controller {
         }
         $cats = config('cat.lists');
         foreach ($news as $k => $new) {
-            $news[$k]['catname'] = $cats[$news['catid']] ? $cats[$new['catid']] : '-';
+            $news[$k]['catname'] = $cats[$new['catid']] ? $cats[$new['catid']] : '-';
         }
         return $news;
+    }
+
+    /*获取分页page size 内容*/
+    public function getPageAndSize($data) {
+        $this->page = !empty($data['page']) ? $data['page'] : 1;
+        $this->size = !empty($data['size']) ? $data['size'] : config('paginate.list_rows');
+        $this->from = ($this->page - 1) * $this->size;
+
     }
 }
