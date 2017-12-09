@@ -9,7 +9,12 @@ class News extends Common {
     public function index() {
         $data                = input('get.');
         $whereData['status'] = config('code.status_normal');
-        $whereData['catid']  = input('get.catid');
+        if (!empty($data['catid'])) {
+            $whereData['catid'] = input('get.catid', 0, 'intval');
+        }
+        if (!empty($data['title'])) {
+            $whereData['title'] = ['like', '%' . $data['title'] . '%'];
+        }
         $this->getPageAndSize($data);
         $total  = model('News')->getNewsCountByCondition($whereData);
         $news   = model('News')->getNewsByCondition($whereData, $this->from, $this->size);
