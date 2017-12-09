@@ -7,6 +7,7 @@ use app\common\lib\Aes;
 use app\common\lib\exception\ApiException;
 use app\common\lib\IAuth;
 use app\common\lib\Time;
+use think\Cache;
 use think\Controller;
 
 class Common extends Controller {
@@ -28,6 +29,7 @@ class Common extends Controller {
         if (!IAuth::checkSignPass($header)) {
             throw new ApiException('授权码sign失败', 401);
         }
+        Cache::set($header['sign'], 1, config('app.app_sign_cache_time'));
         $this->header = $header;
     }
 
@@ -35,7 +37,7 @@ class Common extends Controller {
         $data = [
             'did'  => 213,
             'name' => 'yangze',
-            'time'=>Time::get13TimeStamp()
+            'time' => Time::get13TimeStamp()
         ];
         echo IAuth::setSign($data);
 
