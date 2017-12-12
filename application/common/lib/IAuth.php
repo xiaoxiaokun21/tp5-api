@@ -41,4 +41,14 @@ class IAuth {
         }
         return true;
     }
+
+    /**
+     * @param string $phone
+     * @return string
+     */
+    public static function setAppLoginToken($phone = '') {
+        $str = md5(uniqid(md5(microtime(true)), true));
+        $str = sha1($str . $phone);
+        return $str;
+    }
 }

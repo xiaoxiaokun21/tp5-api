@@ -12,3 +12,6 @@ Route::resource('api/:ver/news', 'api/:ver.news');
 
 //排行
 Route::get('api/:ver/rank', 'api/:ver.rank/index');
+
+//登录
+Route::post('api/:ver/login', 'api/:ver.login/save');
