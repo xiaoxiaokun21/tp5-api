@@ -15,3 +15,5 @@ Route::get('api/:ver/rank', 'api/:ver.rank/index');
 
 //登录
 Route::post('api/:ver/login', 'api/:ver.login/save');
+
+Route::post('api/:ver/user', 'api/:ver.user/save');
